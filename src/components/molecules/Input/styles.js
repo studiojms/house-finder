@@ -17,4 +17,5 @@ export const InputText = styled.TextInput`
   color: #fff;
   width: 100%;
   background-color: ${({ theme }) => theme.colors.backgroundLight};
+  font-family: 'Montserrat-Regular';
 `;
