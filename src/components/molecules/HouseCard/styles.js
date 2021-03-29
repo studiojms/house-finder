@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 export const CardContainer = styled.TouchableOpacity`
-  width: 100%;
+  width: ${({ theme }) => theme.metrics.wp(86)}px;
   height: ${({ theme }) => theme.metrics.px(240)}px;
   border-radius: ${({ theme }) => theme.metrics.px(24)}px;
   background-color: ${({ theme }) => theme.colors.backgroundLight};
@@ -33,7 +33,7 @@ export const TextContainerLeft = styled.View`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  width: 70%;
+  width: 65%;
   height: 100%;
 `;
 
@@ -42,6 +42,6 @@ export const TextContainerRight = styled.View`
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-  width: 30%;
+  width: 35%;
   height: 100%;
 `;

@@ -8,17 +8,21 @@ import {
   TextContainerRight,
 } from './styles';
 
-export const HouseCard = ({ imgSource }) => {
+export const HouseCard = ({ imgSource, title, description, price }) => {
+  // const formattedPrice = new Intl.NumberFormat('en-US', {
+  //   style: 'currency',
+  //   currency: 'USD',
+  // });
   return (
     <CardContainer>
       <CardImage source={{ uri: imgSource }} />
       <TextContainer>
         <TextContainerLeft>
-          <CardTitle>House for sale</CardTitle>
-          <CardDescription>39, Test Street</CardDescription>
+          <CardTitle>{title}</CardTitle>
+          <CardDescription>{description}</CardDescription>
         </TextContainerLeft>
         <TextContainerRight>
-          <CardHighlightText>US$ 200.000,00</CardHighlightText>
+          <CardHighlightText>US$ {Number(price).toFixed(2)}</CardHighlightText>
         </TextContainerRight>
       </TextContainer>
     </CardContainer>
