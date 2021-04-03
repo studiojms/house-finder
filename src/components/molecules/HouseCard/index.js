@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/core';
 import React from 'react';
+import { useHousesStore } from '../../../stores/houses';
 import { CardDescription, CardHighlightText, CardTitle } from '../../atoms';
 import {
   CardContainer,
@@ -11,6 +12,7 @@ import {
 
 export const HouseCard = ({ imgSource, title, description, price, item }) => {
   const navigator = useNavigation();
+  const { setSelectedHouse } = useHousesStore();
 
   // const formattedPrice = new Intl.NumberFormat('en-US', {
   //   style: 'currency',
@@ -18,9 +20,8 @@ export const HouseCard = ({ imgSource, title, description, price, item }) => {
   // });
 
   const onItemContainerClick = () => {
-    navigator.navigate('HouseDetail', {
-      selectedHouse: item,
-    });
+    setSelectedHouse(item);
+    navigator.navigate('HouseDetail');
   };
 
   return (

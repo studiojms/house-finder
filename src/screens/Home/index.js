@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {
-  DetailText,
-  HouseList,
-  IconButton,
-  Input,
-  Loader,
-  Title,
-} from '../../components';
+import { HouseList, IconButton, Input, Loader, Title } from '../../components';
 import { listHouses } from '../../services/calls';
+import { useHousesStore } from '../../stores/houses';
 import {
   ScreenContainer,
   TitleContainer,
@@ -16,22 +10,20 @@ import {
 } from './styles';
 
 export const HomeScreen = () => {
+  const { housesList, setHouseList } = useHousesStore();
   const [loading, setLoading] = useState(true);
-  const [houseListData, setHouseListData] = useState([]);
-
-  const callListHouses = async () => {
-    const result = await listHouses();
-    setHouseListData(result?.properties || []);
-    setLoading(false);
-  };
 
   useEffect(() => {
-    callListHouses();
-  }, []);
+    (async () => {
+      const result = await listHouses();
+      setHouseList(result?.properties || []);
+      setLoading(false);
+    })();
+  }, [setHouseList]);
 
   return (
     <ScreenContainer>
-      <HouseList data={houseListData} loading={loading}>
+      <HouseList data={housesList} loading={loading}>
         <ContentContainer>
           <TopContainer>
             <TitleContainer>

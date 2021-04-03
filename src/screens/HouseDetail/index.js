@@ -10,6 +10,7 @@ import {
   HouseFeatureCard,
 } from '../../components';
 import { getHouseDetail } from '../../services/calls';
+import { useHousesStore } from '../../stores/houses';
 import {
   BottomScreenContainer,
   FeaturesContainer,
@@ -20,7 +21,7 @@ import {
 export const HouseDetail = ({ route }) => {
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState();
-  const { selectedHouse } = route.params;
+  const { selectedHouse } = useHousesStore();
 
   const navigator = useNavigation();
 
