@@ -11,3 +11,15 @@ export const listHouses = async () => {
     return err;
   }
 };
+
+export const getHouseDetail = async property_id => {
+  try {
+    const result = await api.get(
+      `properties/v2/detail?property_id=${property_id}`,
+    );
+    return result.data;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+};

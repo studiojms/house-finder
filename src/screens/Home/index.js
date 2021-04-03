@@ -4,6 +4,7 @@ import {
   HouseList,
   IconButton,
   Input,
+  Loader,
   Title,
 } from '../../components';
 import { listHouses } from '../../services/calls';
@@ -12,8 +13,6 @@ import {
   TitleContainer,
   TopContainer,
   ContentContainer,
-  Loader,
-  LoaderContainer,
 } from './styles';
 
 export const HomeScreen = () => {
@@ -42,12 +41,7 @@ export const HomeScreen = () => {
           </TopContainer>
           <Input label="Location" placeholder="Type your address" />
 
-          {loading && (
-            <LoaderContainer>
-              <Loader size="large" color="white" />
-              <DetailText>Loading...</DetailText>
-            </LoaderContainer>
-          )}
+          {loading && <Loader />}
         </ContentContainer>
       </HouseList>
     </ScreenContainer>

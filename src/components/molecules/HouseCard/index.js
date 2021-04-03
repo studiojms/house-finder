@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { CardDescription, CardHighlightText, CardTitle } from '../../atoms';
 import {
@@ -8,13 +9,22 @@ import {
   TextContainerRight,
 } from './styles';
 
-export const HouseCard = ({ imgSource, title, description, price }) => {
+export const HouseCard = ({ imgSource, title, description, price, item }) => {
+  const navigator = useNavigation();
+
   // const formattedPrice = new Intl.NumberFormat('en-US', {
   //   style: 'currency',
   //   currency: 'USD',
   // });
+
+  const onItemContainerClick = () => {
+    navigator.navigate('HouseDetail', {
+      selectedHouse: item,
+    });
+  };
+
   return (
-    <CardContainer>
+    <CardContainer onPress={onItemContainerClick}>
       <CardImage source={{ uri: imgSource }} />
       <TextContainer>
         <TextContainerLeft>
