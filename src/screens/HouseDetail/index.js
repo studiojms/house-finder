@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/core';
 import React, { useCallback, useEffect, useState } from 'react';
+import { Alert } from 'react-native';
 import {
   DetailSectionTitle,
   DetailSubtitle,
@@ -10,6 +10,11 @@ import {
   HouseFeatureCard,
 } from '../../components';
 import { getHouseDetail } from '../../services/calls';
+import {
+  checkIsHouseFavorite,
+  saveHouseAsFavorite,
+  removeHouseAsFavorite,
+} from '../../services/db';
 import { useHousesStore } from '../../stores/houses';
 import {
   BottomScreenContainer,
@@ -18,12 +23,11 @@ import {
   ScreenContainer,
 } from './styles';
 
-export const HouseDetail = ({ route }) => {
+export const HouseDetailScreen = ({ navigation }) => {
   const [loading, setLoading] = useState(true);
+  const [favorite, setFavorite] = useState(false);
   const [details, setDetails] = useState();
   const { selectedHouse } = useHousesStore();
-
-  const navigator = useNavigation();
 
   const callGetHouseDetail = useCallback(async () => {
     const result = await getHouseDetail(selectedHouse.property_id);
@@ -31,15 +35,31 @@ export const HouseDetail = ({ route }) => {
     setLoading(false);
   }, [selectedHouse.property_id]);
 
+  const checkIfHouseIsFavorite = useCallback(async () => {
+    const isFavorite = await checkIsHouseFavorite(selectedHouse.property_id);
+    setFavorite(isFavorite);
+  }, [selectedHouse.property_id]);
+
+  const saveAsFavorite = async () => {
+    if (favorite) {
+      await removeHouseAsFavorite(selectedHouse.property_id);
+      Alert.alert('Property successfully removed as favorite');
+    } else {
+      await saveHouseAsFavorite(selectedHouse.property_id);
+      Alert.alert('Property successfully saved as favorite');
+    }
+    setFavorite(!favorite);
+  };
+
   useEffect(() => {
     callGetHouseDetail();
-  }, [callGetHouseDetail]);
+    checkIfHouseIsFavorite();
+  }, [callGetHouseDetail, checkIfHouseIsFavorite]);
 
   const image = selectedHouse.photos[0].href;
-  // console.log('img', image);
 
   const onArrowBackClick = () => {
-    navigator.goBack();
+    navigation.goBack();
   };
 
   return (
@@ -50,7 +70,12 @@ export const HouseDetail = ({ route }) => {
           transparent
           onPress={onArrowBackClick}
         />
-        <IconButton iconName="star-outline" transparent />
+        <IconButton
+          iconName={favorite ? 'star' : 'star-outline'}
+          transparent
+          onPress={saveAsFavorite}
+          fill={favorite}
+        />
       </ImageBackground>
       <BottomScreenContainer>
         {loading ? (
@@ -99,5 +124,3 @@ export const HouseDetail = ({ route }) => {
     </ScreenContainer>
   );
 };
-
-// 1:04:00 -> aula 04
