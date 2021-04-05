@@ -38,6 +38,12 @@ export const DetailSectionTitle = styled(BaseText)`
   font-family: 'Montserrat-Bold';
 `;
 
+export const InputSectionLabel = styled(BaseText)`
+  font-size: ${({ theme }) => theme.metrics.px(16)}px;
+  color: #fff;
+  font-family: 'Montserrat-SemiBold';
+`;
+
 export const InputLabel = styled(BaseText)`
   font-size: ${({ theme }) => theme.metrics.px(14)}px;
   color: #fff;

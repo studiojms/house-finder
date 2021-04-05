@@ -84,9 +84,9 @@ export const HouseDetailScreen = ({ navigation }) => {
           <>
             <DetailTitle>{details.address.line}</DetailTitle>
             <DetailSubtitle>
-              US$ {Number(details.community.price_max).toFixed(2)}/mo
+              US$ {Number(details.community?.price_max || 0).toFixed(2)}/mo
             </DetailSubtitle>
-            <DetailText>{`${details.address.neighborhood_name} - ${details.address.state}`}</DetailText>
+            <DetailText>{`${details.address?.neighborhood_name} - ${details.address?.state}`}</DetailText>
 
             <DetailSectionTitle mt={24} mb={12}>
               Details
@@ -96,17 +96,23 @@ export const HouseDetailScreen = ({ navigation }) => {
               <HouseFeatureCard
                 iconLib="material"
                 iconName="arrow-collapse-all"
-                featureText={`${details.lot_size.size} ${details.lot_size.units}`}
+                featureText={`${details.lot_size?.size || ''} ${
+                  details.lot_size?.units || ''
+                }`}
               />
               <HouseFeatureCard
                 iconLib="material"
                 iconName="bed-king-outline"
-                featureText={`${details.community.beds_min} - ${details.community.beds_max} beds`}
+                featureText={`${details.community?.beds_min || ''} - ${
+                  details.community?.beds_max || ''
+                } beds`}
               />
               <HouseFeatureCard
                 iconLib="fontawesome"
                 iconName="bath"
-                featureText={`${details.community.baths_min} - ${details.community.baths_max}`}
+                featureText={`${details.community?.baths_min || ''} - ${
+                  details.community?.baths_max || ''
+                }`}
               />
             </FeaturesContainer>
 
